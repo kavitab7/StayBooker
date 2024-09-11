@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Loader from '../components/Loader';
+import Error from '../components/Error';
 
 const Booking = () => {
     let { roomid } = useParams();
@@ -22,7 +24,7 @@ const Booking = () => {
     }, [])
     return (
         <div className='m-5' >
-            {loading ? (<h1>Loading...</h1>) : error ? (<h1>Error...</h1>) : (<div>
+            {loading ? (<h1><Loader /></h1>) : error ? (<div>
                 <div className="row justify-content-center mt-5">
                     <div className="col-md-6">
                         <h1>{roomid.name}</h1>
@@ -53,7 +55,7 @@ const Booking = () => {
                         </div>
                     </div>
                 </div>
-            </div>)}
+            </div>) : (<Error />)}
         </div>
     )
 }

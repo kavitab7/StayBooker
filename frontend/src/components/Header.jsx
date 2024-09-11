@@ -1,6 +1,11 @@
 import React from 'react'
 
 const Header = () => {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    function logout() {
+        localStorage.removeItem('currentUser')
+        window.location.href = '/login'
+    }
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -11,12 +16,28 @@ const Header = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/login">Login</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/register">Register</a>
-                            </li>
+                            {user ? (
+                                <>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {user.name}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Bookings</a>
+                                            <a class="dropdown-item" href="#" onClick={logout} >Logout</a>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <li className="nav-item">
+                                        <a className="nav-link active" aria-current="page" href="/login">Login</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link active" aria-current="page" href="/register">Register</a>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </div>
                 </div>
